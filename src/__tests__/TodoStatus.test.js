@@ -14,17 +14,12 @@ describe('<TodoStatus/>', () => {
 
     describe('when a user clicks its status', () => {
       it('toggles the item status', () => {
-        const todo = 'do the thing!';
-        const todos = new Map([[todo, false]]);
-        function toggle(todo) {
-          todos.set(todo, !todos.get(todo));
-        }
-
-        const wrapper = shallow(<TodoStatus todo={todo} toggle={toggle} />);
+        const toggleMock = jest.fn();
+        const wrapper = shallow(<TodoStatus toggle={toggleMock} />);
 
         wrapper.simulate('change');
 
-        expect(todos.get(todo)).toBe(true);
+        expect(toggleMock).toHaveBeenCalled();
       });
     });
   });
