@@ -7,7 +7,7 @@ import BottomNav from './BottomNav';
 const navOptions = ['All', 'Active', 'Done'];
 
 function Todos(props) {
-  const [todos, setTodos] = useState(props.todos);
+  const [todos, setTodos] = useState(props.todos || new Map());
   const [view, setView] = useState(props.defaultView || 'all');
 
   const currentTodos = new Map(
