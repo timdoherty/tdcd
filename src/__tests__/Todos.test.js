@@ -1,17 +1,10 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 
 import Todos from '../Todos';
 
 describe('<Todos/>', () => {
-  beforeEach(() => {
-    // setup each test here (or use before() for all)
-  });
-
-  afterEach(() => {
-    // tear down each test here (or use after() for all)
-  });
-
   let todos = new Map([['foo', false], ['bar', false], ['baz', true]]);
 
   describe('given a list of things to do', () => {
@@ -26,11 +19,14 @@ describe('<Todos/>', () => {
       it('shows only things that still need doing', () => {
         const wrapper = mount(<Todos todos={todos} />);
 
-        const activeNav = wrapper
-          .find('BottomNav')
-          .findWhere(node => node.prop('value') === 'active');
+        act(() => {
+          wrapper
+            .find('BottomNav')
+            .props()
+            .onChange('active');
+        });
 
-        activeNav.simulate('change', activeNav.prop('value'));
+        wrapper.update();
 
         expect(wrapper.find('Todo')).toHaveLength(todos.size - 1);
       });
@@ -39,11 +35,15 @@ describe('<Todos/>', () => {
         it('hides the item that was toggled', () => {
           const wrapper = mount(<Todos defaultView="active" todos={todos} />);
 
-          const statusIndicator = wrapper
-            .findWhere(node => node.prop('todo') === 'foo')
-            .find('TodoStatus');
+          const fooTodo = wrapper.findWhere(
+            node => node.prop('todo') === 'foo'
+          );
 
-          statusIndicator.simulate('change');
+          act(() => {
+            fooTodo.props().toggle(fooTodo.prop('todo'));
+          });
+
+          wrapper.update();
 
           expect(
             wrapper.findWhere(node => node.prop('todo') === 'foo').exists()
@@ -56,11 +56,14 @@ describe('<Todos/>', () => {
       it('shows only things that are done', () => {
         const wrapper = mount(<Todos todos={todos} />);
 
-        const completedNav = wrapper
-          .find('BottomNav')
-          .findWhere(node => node.prop('value') === 'done');
+        act(() => {
+          wrapper
+            .find('BottomNav')
+            .props()
+            .onChange('done');
+        });
 
-        completedNav.simulate('change', completedNav.prop('value'));
+        wrapper.update();
 
         expect(wrapper.find('Todo')).toHaveLength(todos.size - 2);
       });
@@ -69,11 +72,14 @@ describe('<Todos/>', () => {
         it('hides the item that was toggled', () => {
           const wrapper = mount(<Todos defaultView="done" todos={todos} />);
 
-          const statusIndicator = wrapper
-            .findWhere(node => node.prop('todo') === 'baz')
-            .find('TodoStatus');
+          const bazTodo = wrapper.findWhere(
+            node => node.prop('todo') === 'baz'
+          );
 
-          statusIndicator.simulate('change');
+          act(() => {
+            bazTodo.props().toggle(bazTodo.prop('todo'));
+          });
+          wrapper.update();
 
           expect(
             wrapper.findWhere(node => node.prop('todo') === 'baz').exists()
@@ -87,9 +93,13 @@ describe('<Todos/>', () => {
         const todo = 'doin that thing you do';
         const wrapper = mount(<Todos todos={todos} />);
 
-        wrapper
-          .find('TodoInput')
-          .simulate('keyup', { key: 'Enter', target: { value: todo } });
+        act(() => {
+          wrapper
+            .find('TodoInput')
+            .props()
+            .onKeyUp(todo);
+        });
+        wrapper.update();
 
         expect(
           wrapper.findWhere(node => node.prop('todo') === todo).exists()

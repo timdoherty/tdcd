@@ -1,12 +1,9 @@
 import React from 'react';
+import Checkbox from '@material-ui/core/Checkbox';
 
 function TodoStatus(props) {
   return (
-    <input
-      type="checkbox"
-      checked={Boolean(props.isComplete)}
-      onChange={props.toggle}
-    />
+    <Checkbox checked={Boolean(props.isComplete)} onChange={props.toggle} />
   );
 }
 
