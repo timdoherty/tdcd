@@ -15,6 +15,21 @@ describe('<BottomNav/>', () => {
         const wrapper = shallow(<BottomNav options={navOptions} />);
         expect(wrapper.children()).toHaveLength(navOptions.length);
       });
+
+      describe('and an selection is given', () => {
+        it('selects the right option', () => {
+          const wrapper = shallow(
+            <BottomNav options={navOptions} selected={navOptions[1].value} />
+          );
+
+          expect(
+            wrapper
+              .children()
+              .findWhere(node => node.prop('value') === navOptions[1].value)
+              .prop('checked')
+          ).toBe(true);
+        });
+      });
     });
 
     describe('when an option is selected', () => {

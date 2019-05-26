@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function BottomNav(props) {
   function onChange(e) {
@@ -14,14 +13,11 @@ function BottomNav(props) {
           name="nav"
           value={option.value}
           onChange={onChange}
+          checked={Boolean(props.selected)}
         />
       ))}
     </div>
   );
 }
-
-BottomNav.propTypes = {};
-
-BottomNav.defaultProps = {};
 
 export default BottomNav;
