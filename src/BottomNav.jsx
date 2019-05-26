@@ -7,14 +7,17 @@ function BottomNav(props) {
   return (
     <div>
       {props.options.map(option => (
-        <input
-          key={option.value}
-          type="radio"
-          name="nav"
-          value={option.value}
-          onChange={onChange}
-          checked={Boolean(props.selected)}
-        />
+        <React.Fragment key={option.value}>
+          <input
+            id={option.value}
+            type="radio"
+            name="nav"
+            value={option.value}
+            onChange={onChange}
+            checked={option.value === props.selected}
+          />
+          <label htmlFor={option.value}>{option.label}</label>
+        </React.Fragment>
       ))}
     </div>
   );
