@@ -13,7 +13,13 @@ describe('<BottomNav/>', () => {
     describe('when displayed', () => {
       it('all the options are shown', () => {
         const wrapper = shallow(<BottomNav options={navOptions} />);
-        expect(wrapper.children()).toHaveLength(navOptions.length);
+        expect(
+          wrapper
+            .children()
+            .findWhere(node =>
+              navOptions.find(option => option.value === node.prop('value'))
+            )
+        ).toHaveLength(navOptions.length);
       });
 
       describe('and an selection is given', () => {
