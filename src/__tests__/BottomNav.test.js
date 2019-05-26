@@ -1,0 +1,36 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+
+import BottomNav from '../BottomNav';
+
+const navOptions = [
+  { value: 'foo', label: 'foo' },
+  { value: 'bar', label: 'bar' },
+  { value: 'baz', label: 'baz' },
+];
+describe('<BottomNav/>', () => {
+  describe('given a set of navigation options', () => {
+    describe('when displayed', () => {
+      it('all the options are shown', () => {
+        const wrapper = shallow(<BottomNav options={navOptions} />);
+        expect(wrapper.children()).toHaveLength(navOptions.length);
+      });
+    });
+
+    describe('when an option is selected', () => {
+      it('responds with the selected option', () => {
+        const onChangeMock = jest.fn();
+        const wrapper = shallow(
+          <BottomNav options={navOptions} onChange={onChangeMock} />
+        );
+
+        const firstOption = wrapper.children().first();
+        firstOption.simulate('change', {
+          target: { value: firstOption.prop('value') },
+        });
+
+        expect(onChangeMock).toHaveBeenCalledWith(navOptions[0].value);
+      });
+    });
+  });
+});
