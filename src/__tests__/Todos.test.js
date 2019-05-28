@@ -25,7 +25,6 @@ describe('<Todos/>', () => {
             .props()
             .onChange('active');
         });
-
         wrapper.update();
 
         expect(wrapper.find('Todo')).toHaveLength(todos.size - 1);
@@ -42,7 +41,6 @@ describe('<Todos/>', () => {
           act(() => {
             fooTodo.props().toggle(fooTodo.prop('todo'));
           });
-
           wrapper.update();
 
           expect(
@@ -62,7 +60,6 @@ describe('<Todos/>', () => {
             .props()
             .onChange('done');
         });
-
         wrapper.update();
 
         expect(wrapper.find('Todo')).toHaveLength(todos.size - 2);
