@@ -4,10 +4,10 @@ import { shallow } from 'enzyme';
 import TodoInput from '../TodoInput';
 
 describe('<TodoInput/>', () => {
-  describe('given a place to enter a new todo', () => {
+  describe('given a place to enter a new task', () => {
     describe('when a user presses enter', () => {
-      describe('and the input is not empty', () => {
-        it('responds with the new todo name', () => {
+      describe('and the task name is not empty', () => {
+        it('responds with the new task name', () => {
           const todo = 'you do it too';
           const onKeyUpMock = jest.fn();
           const wrapper = shallow(<TodoInput onKeyUp={onKeyUpMock} />);
@@ -18,7 +18,7 @@ describe('<TodoInput/>', () => {
         });
       });
 
-      describe('and the input is empty', () => {
+      describe('and the task name is empty', () => {
         it('does not respond', () => {
           const todo = 'you do it too';
           const onKeyUpMock = jest.fn();
