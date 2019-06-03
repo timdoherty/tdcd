@@ -5,7 +5,7 @@ function TodoStatus(props) {
     <input
       type="checkbox"
       checked={Boolean(props.isComplete)}
-      onChange={props.toggle}
+      onChange={props.onChange}
     />
   );
 }
