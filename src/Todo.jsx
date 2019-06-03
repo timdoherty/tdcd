@@ -6,7 +6,7 @@ function Todo(props) {
     <div>
       <TodoStatus
         isComplete={props.isComplete}
-        toggle={() => {
+        onChange={() => {
           props.toggle(props.todo);
         }}
       />

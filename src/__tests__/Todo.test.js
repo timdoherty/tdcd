@@ -4,9 +4,9 @@ import { shallow } from 'enzyme';
 import Todo from '../Todo';
 
 describe('<Todo/>', () => {
-  describe('given a thing to do', () => {
+  describe('given a task', () => {
     describe('when displayed', () => {
-      it('shows the name of the thing to do', () => {
+      it('shows the name of the task', () => {
         const todo = 'do it!';
 
         const wrapper = shallow(<Todo todo={todo} />);
@@ -16,15 +16,15 @@ describe('<Todo/>', () => {
         );
       });
 
-      it('shows the status of the thing', () => {
+      it('shows the status of the task', () => {
         const wrapper = shallow(<Todo isComplete={true} />);
 
         expect(wrapper.find('TodoStatus').prop('isComplete')).toBe(true);
       });
     });
 
-    describe('when a user toggles the status', () => {
-      it('changes the status of the thing to do', () => {
+    describe('when a user toggles the status of the task', () => {
+      it('changes the status of the task', () => {
         const todo = 'doing it!';
         const todos = new Map([[todo, false]]);
         function toggle(todo) {
@@ -32,10 +32,7 @@ describe('<Todo/>', () => {
         }
         const wrapper = shallow(<Todo todo={todo} toggle={toggle} />);
 
-        wrapper
-          .find('TodoStatus')
-          .props()
-          .toggle();
+        wrapper.find('TodoStatus').simulate('change');
 
         expect(todos.get(todo)).toBe(true);
       });
