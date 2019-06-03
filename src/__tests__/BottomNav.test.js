@@ -9,7 +9,7 @@ const navOptions = [
   { value: 'baz', label: 'baz' },
 ];
 describe('<BottomNav/>', () => {
-  describe('given a set of navigation options', () => {
+  describe('given some navigation options', () => {
     describe('when displayed', () => {
       it('all the options are shown', () => {
         const wrapper = shallow(<BottomNav options={navOptions} />);
@@ -22,7 +22,7 @@ describe('<BottomNav/>', () => {
         ).toHaveLength(navOptions.length);
       });
 
-      describe('and an selection is given', () => {
+      describe('and a selection is provided', () => {
         it('selects the right option', () => {
           const wrapper = shallow(
             <BottomNav options={navOptions} selected={navOptions[1].value} />
