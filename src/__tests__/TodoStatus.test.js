@@ -4,22 +4,22 @@ import { shallow } from 'enzyme';
 import TodoStatus from '../TodoStatus';
 
 describe('<TodoStatus/>', () => {
-  describe('given a todo', () => {
-    describe('when it has been marked complete', () => {
-      it('indicates that it is complete', () => {
+  describe('given a task', () => {
+    describe('when then task is complete', () => {
+      it('indicates that the task is complete', () => {
         const wrapper = shallow(<TodoStatus isComplete={true} />);
         expect(wrapper.prop('checked')).toBe(true);
       });
     });
 
-    describe('when a user clicks its status', () => {
-      it('responds to the click', () => {
-        const toggleMock = jest.fn();
-        const wrapper = shallow(<TodoStatus toggle={toggleMock} />);
+    describe('when a user changes the task status', () => {
+      it('responds to the change', () => {
+        const onChangeMock = jest.fn();
+        const wrapper = shallow(<TodoStatus onChange={onChangeMock} />);
 
         wrapper.simulate('change');
 
-        expect(toggleMock).toHaveBeenCalled();
+        expect(onChangeMock).toHaveBeenCalled();
       });
     });
   });
