@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import Todos from '../Todos';
 
@@ -10,14 +10,14 @@ describe('<Todos/>', () => {
   describe('given a list of things to do', () => {
     describe('when the list is first displayed', () => {
       it('shows all todos regardless of status', () => {
-        const wrapper = mount(<Todos todos={todos} />);
+        const wrapper = shallow(<Todos todos={todos} />);
         expect(wrapper.find('Todo')).toHaveLength(todos.size);
       });
     });
 
     describe('when only active items are selected', () => {
       it('shows only things that still need doing', () => {
-        const wrapper = mount(<Todos todos={todos} />);
+        const wrapper = shallow(<Todos todos={todos} />);
 
         act(() => {
           wrapper
@@ -32,7 +32,7 @@ describe('<Todos/>', () => {
 
       describe('and an active item is toggled', () => {
         it('hides the item that was toggled', () => {
-          const wrapper = mount(<Todos defaultView="active" todos={todos} />);
+          const wrapper = shallow(<Todos defaultView="active" todos={todos} />);
 
           const fooTodo = wrapper.findWhere(
             node => node.prop('todo') === 'foo'
@@ -52,7 +52,7 @@ describe('<Todos/>', () => {
 
     describe('when only completed items are selected', () => {
       it('shows only things that are done', () => {
-        const wrapper = mount(<Todos todos={todos} />);
+        const wrapper = shallow(<Todos todos={todos} />);
 
         act(() => {
           wrapper
@@ -67,7 +67,7 @@ describe('<Todos/>', () => {
 
       describe('and a completed item is toggled', () => {
         it('hides the item that was toggled', () => {
-          const wrapper = mount(<Todos defaultView="done" todos={todos} />);
+          const wrapper = shallow(<Todos defaultView="done" todos={todos} />);
 
           const bazTodo = wrapper.findWhere(
             node => node.prop('todo') === 'baz'
@@ -88,7 +88,7 @@ describe('<Todos/>', () => {
     describe('when a new todo is entered', () => {
       it('adds it to the list of things to do', () => {
         const todo = 'doin that thing you do';
-        const wrapper = mount(<Todos todos={todos} />);
+        const wrapper = shallow(<Todos todos={todos} />);
 
         act(() => {
           wrapper
