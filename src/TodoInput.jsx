@@ -1,15 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function TodoInput(props) {
-  const inputRef = useRef();
+  const [value, setValue] = useState('');
   return (
     <input
-      ref={inputRef}
+      value={value}
+      onChange={e => setValue(e.target.value)}
       onKeyUp={e => {
-        if (e.key === 'Enter' && e.target.value) {
-          props.onKeyUp(e.target.value);
-          inputRef.current.value = '';
+        if (e.key === 'Enter' && value) {
+          props.onKeyUp(value);
+          setValue('');
         }
       }}
     />
