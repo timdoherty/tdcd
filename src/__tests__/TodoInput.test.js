@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import TodoInput from '../TodoInput';
 
@@ -10,7 +10,7 @@ describe('<TodoInput/>', () => {
         it('responds with the new task name', () => {
           const todo = 'you do it too';
           const onKeyUpMock = jest.fn();
-          const wrapper = shallow(<TodoInput onKeyUp={onKeyUpMock} />);
+          const wrapper = mount(<TodoInput onKeyUp={onKeyUpMock} />);
 
           wrapper.simulate('keyup', { key: 'Enter', target: { value: todo } });
 
@@ -20,7 +20,6 @@ describe('<TodoInput/>', () => {
 
       describe('and the task name is empty', () => {
         it('does not respond', () => {
-          const todo = 'you do it too';
           const onKeyUpMock = jest.fn();
           const wrapper = shallow(<TodoInput onKeyUp={onKeyUpMock} />);
 
