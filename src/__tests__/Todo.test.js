@@ -37,5 +37,21 @@ describe('<Todo/>', () => {
         expect(todos.get(todo)).toBe(true);
       });
     });
+
+    describe('when a user clicks the remove indicator', () => {
+      it('removes the task', () => {
+        const todo = 'done it';
+        const todos = new Map([[todo, true]]);
+        function removeTodo(todo) {
+          todos.delete(todo);
+        }
+
+        const wrapper = shallow(<Todo todo={todo} onRemove={removeTodo} />);
+
+        wrapper.find('Delete').simulate('click');
+
+        expect(todos.has(todo)).toBe(false);
+      });
+    });
   });
 });
