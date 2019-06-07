@@ -99,6 +99,17 @@ describe('<Todos/>', () => {
       });
     });
 
+    describe('when a user chooses to remove a task', () => {
+      it('removes the task', () => {
+        const wrapper = shallow(<Todos todos={todos} />);
+
+        const todo = wrapper.find('Todo').first();
+        todo.props().onRemove(todo.prop('todo'));
+
+        expect(wrapper.find('Todo')).toHaveLength(todos.size - 1);
+      });
+    });
+
     describe('when a user chooses to remove all tasks', () => {
       it('removes all the tasks', () => {
         const wrapper = shallow(<Todos todos={todos} />);

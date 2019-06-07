@@ -30,6 +30,12 @@ function useTodos(props) {
     setTodos(newTodos);
   }
 
+  function removeTodo(todo) {
+    let newTodos = new Map(todos);
+    newTodos.delete(todo);
+    setTodos(newTodos);
+  }
+
   function removeAll() {
     setTodos(new Map());
   }
@@ -42,6 +48,7 @@ function useTodos(props) {
     todos: [...todos.entries()].filter(predicate),
     addTodo,
     toggleTodo,
+    removeTodo,
     removeAll,
     view,
     changeView,
@@ -49,9 +56,15 @@ function useTodos(props) {
 }
 
 function Todos(props) {
-  const { todos, toggleTodo, addTodo, removeAll, view, changeView } = useTodos(
-    props
-  );
+  const {
+    todos,
+    toggleTodo,
+    addTodo,
+    removeTodo,
+    removeAll,
+    view,
+    changeView,
+  } = useTodos(props);
 
   return (
     <div>
@@ -63,6 +76,7 @@ function Todos(props) {
           todo={todo}
           isComplete={isComplete}
           toggle={toggleTodo}
+          onRemove={removeTodo}
         />
       ))}
       <BottomNav
