@@ -7,7 +7,9 @@ describe('<TodoStatus/>', () => {
   describe('given a task', () => {
     describe('when then task is complete', () => {
       it('indicates that the task is complete', () => {
-        const wrapper = shallow(<TodoStatus isComplete={true} />);
+        const wrapper = shallow(
+          <TodoStatus isComplete={true} onChange={() => {}} />
+        );
         expect(wrapper.prop('checked')).toBe(true);
       });
     });
