@@ -1,63 +1,74 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import Todo from './Todo';
 import TodoInput from './TodoInput';
 import BottomNav from './BottomNav';
 
-const navOptions = ['All', 'Active', 'Done'];
+const views = ['All', 'Active', 'Done'];
 
-function Todos(props) {
+function useTodos(props) {
   const [todos, setTodos] = useState(props.todos || new Map());
-  const [view, setView] = useState(props.defaultView || 'all');
+  const [view, setView] = useState('all');
+  const predicates = {
+    active: ([task, isComplete]) => !isComplete,
+    done: ([task, isComplete]) => isComplete,
+  };
+  const predicate = predicates[view] || (() => true);
 
-  const currentTodos = new Map(
-    [...todos.entries()].filter(([todo, isComplete]) => {
-      switch (view) {
-        case 'active':
-          return !isComplete;
-        case 'done':
-          return isComplete;
-        default:
-          return true;
-      }
-    })
-  );
-
-  function onKeyUp(value) {
-    let newTodos = new Map(todos);
-    newTodos.set(value, false);
-    setTodos(newTodos);
-  }
-
-  function onToggle(todo) {
+  function toggleTodo(todo) {
     let newTodos = new Map(todos);
     newTodos.set(todo, !newTodos.get(todo));
     setTodos(newTodos);
   }
 
+  function addTodo(todo) {
+    let newTodos = new Map(todos);
+    newTodos.set(todo, false);
+    setTodos(newTodos);
+  }
+
+  function changeView(view) {
+    setView(view);
+  }
+
+  return {
+    todos: [...todos.entries()].filter(predicate),
+    addTodo,
+    toggleTodo,
+    view,
+    changeView,
+  };
+}
+
+function Todos(props) {
+  const { todos, toggleTodo, addTodo, view, changeView } = useTodos(props);
+
   return (
     <div>
-      <TodoInput onKeyUp={onKeyUp} />
-      {[...currentTodos.entries()].map(([todo, isComplete]) => (
+      <TodoInput onKeyUp={addTodo} />
+      {todos.map(([todo, isComplete]) => (
         <Todo
           key={todo}
           todo={todo}
           isComplete={isComplete}
-          toggle={onToggle}
+          toggle={toggleTodo}
         />
       ))}
       <BottomNav
-        onChange={newView => {
-          setView(newView);
-        }}
-        options={navOptions.map(option => ({
-          label: option,
-          value: option.toLowerCase(),
-        }))}
         selected={view}
+        options={views.map(view => ({
+          value: view.toLowerCase(),
+          label: view,
+        }))}
+        onChange={changeView}
       />
     </div>
   );
 }
+
+Todos.propTypes = {};
+
+Todos.defaultProps = {};
 
 export default Todos;
