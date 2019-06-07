@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
 
 function TodoInput(props) {
   const inputRef = useRef();
@@ -14,5 +15,9 @@ function TodoInput(props) {
     />
   );
 }
+
+TodoInput.propTypes = {
+  onKeyUp: PropTypes.func.isRequired,
+};
 
 export default TodoInput;
