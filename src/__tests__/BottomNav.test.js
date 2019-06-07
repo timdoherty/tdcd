@@ -8,11 +8,14 @@ const navOptions = [
   { value: 'bar', label: 'bar' },
   { value: 'baz', label: 'baz' },
 ];
+
 describe('<BottomNav/>', () => {
   describe('given some navigation options', () => {
     describe('when displayed', () => {
       it('all the options are shown', () => {
-        const wrapper = shallow(<BottomNav options={navOptions} />);
+        const wrapper = shallow(
+          <BottomNav options={navOptions} onChange={() => {}} />
+        );
         expect(
           wrapper
             .children()
@@ -25,7 +28,11 @@ describe('<BottomNav/>', () => {
       describe('and a selection is provided', () => {
         it('selects the right option', () => {
           const wrapper = shallow(
-            <BottomNav options={navOptions} selected={navOptions[1].value} />
+            <BottomNav
+              options={navOptions}
+              selected={navOptions[1].value}
+              onChange={() => {}}
+            />
           );
 
           expect(
