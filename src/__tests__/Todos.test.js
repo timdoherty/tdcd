@@ -4,103 +4,98 @@ import { shallow } from 'enzyme';
 
 import Todos from '../Todos';
 
-describe('<Todos/>', () => {
-  let todos = new Map([['foo', false], ['bar', false], ['baz', true]]);
+const todos = new Map([
+  ['foo', false],
+  ['bar', true],
+  ['baz', false],
+  ['bim', true],
+  ['bop', false],
+  ['bap', true],
+  ['boo', true],
+]);
 
-  describe('given a list of things to do', () => {
-    describe('when the list is first displayed', () => {
-      it('shows all todos regardless of status', () => {
+describe('<Todos/>', () => {
+  describe('given a list of tasks', () => {
+    describe('when displayed', () => {
+      it('all tasks are shown', () => {
         const wrapper = shallow(<Todos todos={todos} />);
         expect(wrapper.find('Todo')).toHaveLength(todos.size);
       });
     });
 
-    describe('when only active items are selected', () => {
-      it('shows only things that still need doing', () => {
+    describe('when a user enters a new task', () => {
+      it('adds the new task the displayed tasks', () => {
+        const task =
+          'do something very important, because I am an important person';
         const wrapper = shallow(<Todos todos={todos} />);
 
-        act(() => {
+        wrapper.find('TodoInput').simulate('keyup', {
+          key: 'Enter',
+          target: {
+            value: task,
+          },
+        });
+
+        expect(wrapper.find('Todo')).toHaveLength(todos.size + 1);
+      });
+    });
+
+    describe('when the user chooses to see only active tasks', () => {
+      it('shows only active tasks', () => {
+        const wrapper = shallow(<Todos todos={todos} />);
+
+        wrapper
+          .find('BottomNav')
+          .props()
+          .onChange('active');
+        expect(wrapper.find('BottomNav').prop('selected')).toBe('active');
+        expect(wrapper.find('Todo')).toHaveLength(3);
+      });
+
+      describe('and the user completes an active task', () => {
+        it('removes the task from the current view', () => {
+          const wrapper = shallow(<Todos todos={todos} />);
+
           wrapper
             .find('BottomNav')
             .props()
             .onChange('active');
-        });
-        wrapper.update();
 
-        expect(wrapper.find('Todo')).toHaveLength(todos.size - 1);
-      });
+          const activeTodo = wrapper.find('Todo').first();
+          activeTodo.props().toggle(activeTodo.prop('todo'));
 
-      describe('and an active item is toggled', () => {
-        it('hides the item that was toggled', () => {
-          const wrapper = shallow(<Todos defaultView="active" todos={todos} />);
-
-          const fooTodo = wrapper.findWhere(
-            node => node.prop('todo') === 'foo'
-          );
-
-          act(() => {
-            fooTodo.props().toggle(fooTodo.prop('todo'));
-          });
-          wrapper.update();
-
-          expect(
-            wrapper.findWhere(node => node.prop('todo') === 'foo').exists()
-          ).toBe(false);
+          expect(wrapper.find('Todo')).toHaveLength(2);
         });
       });
     });
 
-    describe('when only completed items are selected', () => {
-      it('shows only things that are done', () => {
+    describe('when the user choose to see only completed tasks', () => {
+      it('shows only completed tasks', () => {
         const wrapper = shallow(<Todos todos={todos} />);
 
-        act(() => {
+        wrapper
+          .find('BottomNav')
+          .props()
+          .onChange('done');
+
+        expect(wrapper.find('BottomNav').prop('selected')).toBe('done');
+        expect(wrapper.find('Todo')).toHaveLength(4);
+      });
+
+      describe('and the user toggles a completed task', () => {
+        it('removes the task from the current view', () => {
+          const wrapper = shallow(<Todos todos={todos} />);
+
           wrapper
             .find('BottomNav')
             .props()
             .onChange('done');
+
+          const completedTodo = wrapper.find('Todo').first();
+          completedTodo.props().toggle(completedTodo.prop('todo'));
+
+          expect(wrapper.find('Todo')).toHaveLength(3);
         });
-        wrapper.update();
-
-        expect(wrapper.find('Todo')).toHaveLength(todos.size - 2);
-      });
-
-      describe('and a completed item is toggled', () => {
-        it('hides the item that was toggled', () => {
-          const wrapper = shallow(<Todos defaultView="done" todos={todos} />);
-
-          const bazTodo = wrapper.findWhere(
-            node => node.prop('todo') === 'baz'
-          );
-
-          act(() => {
-            bazTodo.props().toggle(bazTodo.prop('todo'));
-          });
-          wrapper.update();
-
-          expect(
-            wrapper.findWhere(node => node.prop('todo') === 'baz').exists()
-          ).toBe(false);
-        });
-      });
-    });
-
-    describe('when a new todo is entered', () => {
-      it('adds it to the list of things to do', () => {
-        const todo = 'doin that thing you do';
-        const wrapper = shallow(<Todos todos={todos} />);
-
-        act(() => {
-          wrapper
-            .find('TodoInput')
-            .props()
-            .onKeyUp(todo);
-        });
-        wrapper.update();
-
-        expect(
-          wrapper.findWhere(node => node.prop('todo') === todo).exists()
-        ).toBe(true);
       });
     });
   });
