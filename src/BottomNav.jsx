@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 function BottomNav(props) {
   function onChange(e) {
@@ -7,7 +8,7 @@ function BottomNav(props) {
   return (
     <div>
       {props.options.map(option => (
-        <React.Fragment key={option.value}>
+        <Fragment key={option.value}>
           <input
             id={option.value}
             type="radio"
@@ -17,10 +18,20 @@ function BottomNav(props) {
             checked={option.value === props.selected}
           />
           <label htmlFor={option.value}>{option.label}</label>
-        </React.Fragment>
+        </Fragment>
       ))}
     </div>
   );
 }
+
+BottomNav.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string,
+    })
+  ).isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default BottomNav;
