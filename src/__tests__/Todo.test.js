@@ -23,14 +23,14 @@ describe('<Todo/>', () => {
       });
     });
 
-    describe('when a user toggles the status of the task', () => {
+    describe('when a user completes a task', () => {
       it('changes the status of the task', () => {
         const todo = 'doing it!';
         const todos = new Map([[todo, false]]);
         function toggle(todo) {
           todos.set(todo, !todos.get(todo));
         }
-        const wrapper = shallow(<Todo todo={todo} toggle={toggle} />);
+        const wrapper = shallow(<Todo todo={todo} onChange={toggle} />);
 
         wrapper.find('TodoStatus').simulate('change');
 

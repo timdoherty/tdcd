@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import TodoStatus from './TodoStatus';
 
@@ -12,7 +13,7 @@ function Todo(props) {
       <TodoStatus
         isComplete={props.isComplete}
         onChange={() => {
-          props.toggle(props.todo);
+          props.onChange(props.todo);
         }}
       />
       {props.todo}
@@ -20,5 +21,10 @@ function Todo(props) {
     </Card>
   );
 }
+
+Todo.propTypes = {
+  isComplete: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Todo;
