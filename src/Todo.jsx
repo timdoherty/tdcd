@@ -2,6 +2,8 @@ import React from 'react';
 import Card from '@material-ui/core/Card';
 import TodoStatus from './TodoStatus';
 
+const Delete = props => <button onClick={props.onClick}>Delete</button>;
+
 function Todo(props) {
   return (
     <Card
@@ -14,6 +16,7 @@ function Todo(props) {
         }}
       />
       {props.todo}
+      <Delete onClick={() => props.onRemove(props.todo)} />
     </Card>
   );
 }
