@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function TodoInput(props) {
   const [value, setValue] = useState('');
@@ -15,5 +16,9 @@ function TodoInput(props) {
     />
   );
 }
+
+TodoInput.propTypes = {
+  onKeyUp: PropTypes.func.isRequired,
+};
 
 export default TodoInput;
