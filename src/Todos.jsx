@@ -5,6 +5,8 @@ import Todo from './Todo';
 import TodoInput from './TodoInput';
 import BottomNav from './BottomNav';
 
+const DeleteAll = props => <button onClick={props.onClick}>Delete All</button>;
+
 const views = ['All', 'Active', 'Done'];
 
 function useTodos(props) {
@@ -28,6 +30,10 @@ function useTodos(props) {
     setTodos(newTodos);
   }
 
+  function removeAll() {
+    setTodos(new Map());
+  }
+
   function changeView(view) {
     setView(view);
   }
@@ -36,17 +42,21 @@ function useTodos(props) {
     todos: [...todos.entries()].filter(predicate),
     addTodo,
     toggleTodo,
+    removeAll,
     view,
     changeView,
   };
 }
 
 function Todos(props) {
-  const { todos, toggleTodo, addTodo, view, changeView } = useTodos(props);
+  const { todos, toggleTodo, addTodo, removeAll, view, changeView } = useTodos(
+    props
+  );
 
   return (
     <div>
       <TodoInput onKeyUp={addTodo} />
+      <DeleteAll onClick={removeAll} />
       {todos.map(([todo, isComplete]) => (
         <Todo
           key={todo}

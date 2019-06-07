@@ -40,7 +40,7 @@ describe('<Todos/>', () => {
       });
     });
 
-    describe('when the user chooses to see only active tasks', () => {
+    describe('when a user chooses to see only active tasks', () => {
       it('shows only active tasks', () => {
         const wrapper = shallow(<Todos todos={todos} />);
 
@@ -69,7 +69,7 @@ describe('<Todos/>', () => {
       });
     });
 
-    describe('when the user choose to see only completed tasks', () => {
+    describe('when a user choose to see only completed tasks', () => {
       it('shows only completed tasks', () => {
         const wrapper = shallow(<Todos todos={todos} />);
 
@@ -96,6 +96,16 @@ describe('<Todos/>', () => {
 
           expect(wrapper.find('Todo')).toHaveLength(3);
         });
+      });
+    });
+
+    describe('when a user chooses to remove all tasks', () => {
+      it('removes all the tasks', () => {
+        const wrapper = shallow(<Todos todos={todos} />);
+
+        wrapper.find('DeleteAll').simulate('click');
+
+        expect(wrapper.find('Todos')).toHaveLength(0);
       });
     });
   });
