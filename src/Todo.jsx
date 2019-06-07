@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TodoStatus from './TodoStatus';
 
 const Delete = props => <button onClick={props.onClick}>Delete</button>;
@@ -9,7 +10,7 @@ function Todo(props) {
       <TodoStatus
         isComplete={props.isComplete}
         onChange={() => {
-          props.toggle(props.todo);
+          props.onChange(props.todo);
         }}
       />
       {props.todo}
@@ -17,5 +18,10 @@ function Todo(props) {
     </div>
   );
 }
+
+Todo.propTypes = {
+  isComplete: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default Todo;
