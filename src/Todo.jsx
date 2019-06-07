@@ -1,6 +1,8 @@
 import React from 'react';
 import TodoStatus from './TodoStatus';
 
+const Delete = props => <button onClick={props.onClick}>Delete</button>;
+
 function Todo(props) {
   return (
     <div>
@@ -11,6 +13,7 @@ function Todo(props) {
         }}
       />
       {props.todo}
+      <Delete onClick={() => props.onRemove(props.todo)} />
     </div>
   );
 }
