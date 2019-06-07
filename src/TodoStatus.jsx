@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function TodoStatus(props) {
   return (
@@ -9,5 +10,10 @@ function TodoStatus(props) {
     />
   );
 }
+
+TodoStatus.propTypes = {
+  isComplete: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default TodoStatus;
