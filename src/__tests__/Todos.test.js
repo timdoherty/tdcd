@@ -62,7 +62,7 @@ describe('<Todos/>', () => {
             .onChange('active');
 
           const activeTodo = wrapper.find('Todo').first();
-          activeTodo.props().toggle(activeTodo.prop('todo'));
+          activeTodo.props().onChange(activeTodo.prop('todo'));
 
           expect(wrapper.find('Todo')).toHaveLength(2);
         });
@@ -92,7 +92,7 @@ describe('<Todos/>', () => {
             .onChange('done');
 
           const completedTodo = wrapper.find('Todo').first();
-          completedTodo.props().toggle(completedTodo.prop('todo'));
+          completedTodo.props().onChange(completedTodo.prop('todo'));
 
           expect(wrapper.find('Todo')).toHaveLength(3);
         });

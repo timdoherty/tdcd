@@ -75,7 +75,7 @@ function Todos(props) {
           key={todo}
           todo={todo}
           isComplete={isComplete}
-          toggle={toggleTodo}
+          onChange={toggleTodo}
           onRemove={removeTodo}
         />
       ))}
