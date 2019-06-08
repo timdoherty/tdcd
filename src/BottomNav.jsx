@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Radio from '@material-ui/core/Radio';
 
 function BottomNav(props) {
   function onChange(e) {
@@ -9,9 +10,8 @@ function BottomNav(props) {
     <div>
       {props.options.map(option => (
         <Fragment key={option.value}>
-          <input
+          <Radio
             id={option.value}
-            type="radio"
             name="nav"
             value={option.value}
             onChange={onChange}

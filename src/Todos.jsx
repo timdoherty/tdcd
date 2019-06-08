@@ -1,11 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Paper from '@material-ui/core/Paper';
 import Todo from './Todo';
 import TodoInput from './TodoInput';
 import BottomNav from './BottomNav';
 
-const DeleteAll = props => <button onClick={props.onClick}>Delete All</button>;
+const DeleteAll = props => (
+  <IconButton onClick={props.onClick}>
+    <DeleteIcon />
+  </IconButton>
+);
 
 const views = ['All', 'Active', 'Done'];
 
@@ -67,9 +73,18 @@ function Todos(props) {
   } = useTodos(props);
 
   return (
-    <div>
-      <TodoInput onKeyUp={addTodo} />
-      <DeleteAll onClick={removeAll} />
+    <Paper style={{ width: '85%', maxWidth: '800px', margin: 'auto' }}>
+      <div
+        style={{
+          width: '95%',
+          display: 'flex',
+          margin: '10px auto',
+          alignItems: 'center',
+        }}
+      >
+        <TodoInput style={{ flex: '1' }} onKeyUp={addTodo} />
+        <DeleteAll onClick={removeAll} />
+      </div>
       {todos.map(([todo, isComplete]) => (
         <Todo
           key={todo}
@@ -87,7 +102,7 @@ function Todos(props) {
         }))}
         onChange={changeView}
       />
-    </div>
+    </Paper>
   );
 }
 

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
 
 function TodoInput(props) {
   const [value, setValue] = useState('');
   return (
-    <input
+    <TextField
+      style={props.style}
       value={value}
       onChange={e => setValue(e.target.value)}
       onKeyUp={e => {
