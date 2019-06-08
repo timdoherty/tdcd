@@ -24,7 +24,12 @@ describe('<Todo/>', () => {
       it('shows the status of the task', () => {
         const wrapper = shallow(<Todo {...props} isComplete={true} />);
 
-        expect(wrapper.find('TodoStatus').prop('isComplete')).toBe(true);
+        expect(
+          wrapper
+            .find('TodoStatus')
+            .dive()
+            .prop('checked')
+        ).toBe(true);
       });
     });
 
@@ -39,7 +44,10 @@ describe('<Todo/>', () => {
           <Todo {...props} todo={todo} onChange={toggle} />
         );
 
-        wrapper.find('TodoStatus').simulate('change');
+        wrapper
+          .find('TodoStatus')
+          .dive()
+          .simulate('change');
 
         expect(todos.get(todo)).toBe(true);
       });
