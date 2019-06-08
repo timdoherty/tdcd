@@ -1,8 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
-import TodoStatus from './TodoStatus';
 
+function TodoStatus(props) {
+  return (
+    <input
+      type="checkbox"
+      checked={Boolean(props.isComplete)}
+      onChange={props.onChange}
+    />
+  );
+}
 const Delete = props => <button onClick={props.onClick}>Delete</button>;
 
 function Todo(props) {
@@ -25,6 +33,7 @@ function Todo(props) {
 Todo.propTypes = {
   isComplete: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default Todo;
