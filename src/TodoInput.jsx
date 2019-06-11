@@ -11,7 +11,7 @@ function TodoInput(props) {
       onChange={e => setValue(e.target.value)}
       onKeyUp={e => {
         if (e.key === 'Enter' && value) {
-          props.onKeyUp(value);
+          props.onChange(value);
           setValue('');
         }
       }}
@@ -20,7 +20,7 @@ function TodoInput(props) {
 }
 
 TodoInput.propTypes = {
-  onKeyUp: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default TodoInput;

@@ -9,25 +9,25 @@ describe('<TodoInput/>', () => {
       describe('and the task name is not empty', () => {
         it('responds with the new task name and clears the new task name', () => {
           const todo = 'you do it too';
-          const onKeyUpMock = jest.fn();
-          const wrapper = shallow(<TodoInput onKeyUp={onKeyUpMock} />);
+          const onChangeMock = jest.fn();
+          const wrapper = shallow(<TodoInput onChange={onChangeMock} />);
 
           wrapper.simulate('change', { target: { value: todo } });
           wrapper.simulate('keyup', { key: 'Enter' });
 
-          expect(onKeyUpMock).toHaveBeenCalledWith(todo);
+          expect(onChangeMock).toHaveBeenCalledWith(todo);
           expect(wrapper.prop('value')).toBe('');
         });
       });
 
       describe('and the task name is empty', () => {
         it('does not respond', () => {
-          const onKeyUpMock = jest.fn();
-          const wrapper = shallow(<TodoInput onKeyUp={onKeyUpMock} />);
+          const onChangeMock = jest.fn();
+          const wrapper = shallow(<TodoInput onChange={onChangeMock} />);
 
           wrapper.simulate('keyup', { key: 'Enter', target: { value: '' } });
 
-          expect(onKeyUpMock).not.toHaveBeenCalled();
+          expect(onChangeMock).not.toHaveBeenCalled();
         });
       });
     });
