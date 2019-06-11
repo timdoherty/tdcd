@@ -68,7 +68,7 @@ function Todos(props) {
 
   return (
     <div>
-      <TodoInput onKeyUp={addTodo} />
+      <TodoInput onChange={addTodo} />
       <DeleteAll onClick={removeAll} />
       {todos.map(([todo, isComplete]) => (
         <Todo

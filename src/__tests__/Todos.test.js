@@ -25,16 +25,14 @@ describe('<Todos/>', () => {
 
     describe('when a user enters a new task', () => {
       it('adds the new task the displayed tasks', () => {
-        const task =
+        const todo =
           'do something very important, because I am an important person';
         const wrapper = shallow(<Todos todos={todos} />);
 
-        wrapper.find('TodoInput').simulate('keyup', {
-          key: 'Enter',
-          target: {
-            value: task,
-          },
-        });
+        wrapper
+          .find('TodoInput')
+          .props()
+          .onChange(todo);
 
         expect(wrapper.find('Todo')).toHaveLength(todos.size + 1);
       });
