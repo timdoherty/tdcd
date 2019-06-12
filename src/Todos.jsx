@@ -82,7 +82,7 @@ function Todos(props) {
           alignItems: 'center',
         }}
       >
-        <TodoInput style={{ flex: '1' }} onKeyUp={addTodo} />
+        <TodoInput style={{ flex: '1' }} onChange={addTodo} />
         <DeleteAll onClick={removeAll} />
       </div>
       {todos.map(([todo, isComplete]) => (
