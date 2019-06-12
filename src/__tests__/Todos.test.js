@@ -29,12 +29,10 @@ describe('<Todos/>', () => {
           'do something very important, because I am an important person';
         const wrapper = shallow(<Todos todos={todos} />);
 
-        wrapper.find('TodoInput').simulate('keyup', {
-          key: 'Enter',
-          target: {
-            value: task,
-          },
-        });
+        wrapper
+          .find('TodoInput')
+          .props()
+          .onChange(task);
 
         expect(wrapper.find('Todo')).toHaveLength(todos.size + 1);
       });
