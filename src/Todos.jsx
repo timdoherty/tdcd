@@ -19,15 +19,11 @@ function useTodos(props) {
   const predicate = predicates[view] || (() => true);
 
   function toggleTodo(todo) {
-    let newTodos = new Map(todos);
-    newTodos.set(todo, !newTodos.get(todo));
-    setTodos(newTodos);
+    setTodos(new Map(todos).set(todo, !todos.get(todo)));
   }
 
   function addTodo(todo) {
-    let newTodos = new Map(todos);
-    newTodos.set(todo, false);
-    setTodos(newTodos);
+    setTodos(new Map(todos).set(todo, false));
   }
 
   function removeTodo(todo) {
